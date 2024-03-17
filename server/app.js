@@ -12,10 +12,12 @@ app.use(express.json());
 // importing routes
 const userRoutes = require("./Routes/user");
 const jobRoutes = require("./Routes/jobs");
+// const applicationRoutes = require("./Routes/")
 
 // defining routes
 app.use("/api/v1/auth", userRoutes);
 app.use("/api/v1/jobs", jobRoutes);
+// app.use("/api/v1/application", )
 
 dotenv.config();
 database.connect();
@@ -29,8 +31,11 @@ app.use(
     credentials: true,
     methods: ['GET', 'POST'],
   })
-);
-app.use(
+  );
+  // CORS preflight handling for all routes
+  app.options("*", cors()); // Respond to preflight requests with CORS headers
+
+  app.use(
   fileUpload({
     useTempFiles: true,
     tempFileDir: "/tmp/",
@@ -40,13 +45,6 @@ app.use(
 cloudinaryConnect();
 
 const PORT = process.env.PORT || 8000;
-
-// CORS preflight handling for all routes
-app.options("*", cors()); // Respond to preflight requests with CORS headers
-
-// Define routes
-const userRoutes = require("./Routes/user");
-app.use("/api/v1/auth", userRoutes);
 
 // Route to check service status
 app.get("/", (req, res) => {
