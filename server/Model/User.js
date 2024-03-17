@@ -30,11 +30,6 @@ const userSchema = new mongoose.Schema({
       ref: "JobPosts",
     },
   ],
-  additionalDetails: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'Profile',
-    default: null
-  },
   phone: {
     type: Number,
     trim: true,
@@ -49,9 +44,67 @@ const userSchema = new mongoose.Schema({
   applications: [
     {
       type: mongoose.Schema.ObjectId,
-      ref: 'Application'
-    }
-  ]
+      ref: "Application",
+    },
+  ],
+  experiences: [
+    {
+      companyName: {
+        type: String,
+        trim: true,
+      },
+      role: {
+        type: String,
+      },
+      startDate: {
+        type: Date,
+      },
+      endDate: {
+        type: Date,
+      },
+      additionalDesc: {
+        type: String,
+        trim: true,
+      },
+    },
+  ],
+  education: [
+    {
+      qualification: {
+        type: String,
+        required: true,
+      },
+      grade: {
+        type: String,
+      },
+      startDate: {
+        type: Date,
+      },
+      endDate: {
+        type: Date,
+      },
+    },
+  ],
+  gender: {
+    type: String,
+  },
+  dateOfBirth: {
+    type: String,
+  },
+  about: {
+    type: String,
+    trim: true,
+  },
+  skills: [
+    {
+      type: String,
+      trim: true,
+    },
+  ],
+  about: {
+    type: String,
+    trim: true
+  }
 });
 
-module.exports = mongoose.model("User", userSchema)
+module.exports = mongoose.model("User", userSchema);

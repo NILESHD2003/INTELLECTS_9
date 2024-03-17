@@ -83,3 +83,28 @@ exports.getJobByID = async(req, res) => {
         })
     }
 }
+
+exports.deleteJobPost = async (req, res) => {
+    try{
+        const {id} = req.body;
+        if(!id){
+            return res.status(400).json({
+                success: false,
+                message: 'ID not found'
+            })
+        }
+        const data = await JobPosts.findByIdAndDelete(id);
+        return res.status(200).json({
+            success: true,
+            message: 'Job Post deleted Successfully',
+            data: data
+        })
+    }catch(e){
+        console.log(e.message);
+        return res.status(500).json({
+            success: false,
+            message: 'Internal Server Issue',
+            error: e.message
+        }) 
+    }
+}
