@@ -68,21 +68,6 @@ const Sign_in = createSlice({
       state.FormData = action.payload;
     },
   },
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(SignupUser.pending, (state, action) => {
-  //       // state.isLoading = true;
-  //       // state.data = payload.entries;
-  //     })
-  //     .addCase(SignupUser.fulfilled, (state, { payload }) => {
-  //       // state.formData = payload;
-  //       toast.success(`Successfully  Sign up `);
-  //     })
-  //     .addCase(SignupUser.rejected, (state, action) => {
-  //       // state.isLoading = true;
-  //       console.log(action);
-  //     });
-  // },
 });
 
 export const { store_data } = Sign_in.actions;

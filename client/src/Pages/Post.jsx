@@ -22,7 +22,7 @@ const Post = () => {
     };
 
     fetchData();
-  }, []); // Empty dependency array to run the effect only once when the component mounts
+  }, []);
 
   return (
     <div className="post">

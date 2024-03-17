@@ -35,7 +35,7 @@ const initialState = {
   isLoading: false,
   isLoggedIn: getLoginFromLocalStorage(),
   user: getUserFromLocalStorage(),
-  // user_info: { email: "test123@gmail.com", password: "test@123" },
+  // user_info: { email: "test123@gmail.com", password: "test@123" }, admin email
   user_info: null,
 };
 
