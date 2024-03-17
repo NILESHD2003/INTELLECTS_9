@@ -1,9 +1,18 @@
 const  mongoose = require('mongoose');
+const cloudinary = require('cloudinary').v2;
 const Application = require('../Model/Application');
+require('dotenv').config
+
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET
+  });
 
 exports.submitApplication = async (req, res) => {
     try{
-        const {fname, lname, email, phone, address, resume, coverPage, } = req.body;
+        const {fname, lname, email, phone, address, coverPage, } = req.body;
+        const {resume } = req.file.resume
 
         if(!fname|| !lname|| !email || !phone|| !address|| !resume){
             return res.status(400).json({
@@ -12,13 +21,15 @@ exports.submitApplication = async (req, res) => {
             })
         }
 
+        const uploadedResume = await cloudinary.uploader.upload(resume);
+
         const data = await Application.create({
             fname: fname,
             lname: lname,
             email: email,
             phone: phone,
             address: address,
-            resume: resume,
+            resume: uploadedResume.secure_url,
             coverPage: coverPage,
         })
 
