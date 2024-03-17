@@ -4,6 +4,7 @@ export const addUserToLocalStorage = (user) => {
 };
 export const removeUserFromLocalStorage = (user) => {
   localStorage.removeItem("user");
+  localStorage.removeItem("log-in");
 };
 
 export const getUserFromLocalStorage = () => {

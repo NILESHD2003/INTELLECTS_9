@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../Components/Header";
 import Cards from "../Components/Cards";
 import { card_first, card_second } from "../Utils/links";
+import { NavLink } from "react-router-dom";
 const Home = ({ username, handleLogout }) => {
   const onSubmit = (e) => {
     e.preventDefault();
@@ -12,10 +13,7 @@ const Home = ({ username, handleLogout }) => {
       <div className="section">
         <div className="slidebar">
           <div className="slidebar-image">
-            <img
-              src="https://www.bing.com/th/id/OIP.vbwkWI35ZmPKFR7dPUI0rAHaDa?w=337&h=160&c=7&r=0&o=5&dpr=1.3&pid=1.7"
-              alt=""
-            />
+            <img src="https://wallpaperaccess.com/full/3184128.jpg" alt="" />
           </div>
           <div className="slidebar-info">
             <h1>Get a Head Start to Carrer</h1>
@@ -60,6 +58,9 @@ const Home = ({ username, handleLogout }) => {
             Create free account our job board,apply to jobs ,and connect with
             companies
           </p>
+          <button className="btn btn--job_student">
+            <NavLink to="/applyJobs">Create</NavLink>
+          </button>
         </div>
         <div className="grid">
           <h3>Why Companies Love us</h3>
