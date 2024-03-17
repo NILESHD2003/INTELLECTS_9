@@ -2,9 +2,21 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../User/Login_auth";
-
-const Login = ({ username, password, setUsername, setPassword }) => {
+import { updateUserInfo } from "../User/Login_auth";
+const Login = ({ handleLogout }) => {
   const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    dispatch(updateUserInfo({ email: e.target.value, password }));
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    dispatch(updateUserInfo({ email, password: e.target.value }));
+  };
   const onSubmit = (e) => {
     e.preventDefault();
   };
@@ -20,21 +32,16 @@ const Login = ({ username, password, setUsername, setPassword }) => {
           <label htmlFor="username">Username: </label>
           <input
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={email}
+            onChange={handleEmailChange}
             placeholder="student@standard.edu"
           />
         </div>
-        {/* <Input
-          label="Username:"
-          type="text"
-          placeholder="student@standard.edu"
-        ></Input> */}
         <div className="form-group">
           <label htmlFor="password">Password </label>
           <input
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
             type="password"
             placeholder="password"
           />

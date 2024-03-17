@@ -1,12 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
+
 import {
   addUserToLocalStorage,
   getUserFromLocalStorage,
+  removeUserFromLocalStorage,
   getLoginFromLocalStorage,
 } from "../Utils/localStorage";
-export const loginUser = createAsyncThunk("data", async (_, thunkAPI) => {
+
+export const loginUser = createAsyncThunk("data/login", async (_, thunkAPI) => {
   try {
     console.log(initialState.user_info);
 
@@ -30,7 +33,8 @@ const initialState = {
   isLoading: false,
   isLoggedIn: getLoginFromLocalStorage(),
   user: getUserFromLocalStorage(),
-  user_info: { email: "test123@gmail.com", password: "test@123" },
+  // user_info: { email: "test123@gmail.com", password: "test@123" },
+  user_info: { email: "", password: "" },
 };
 
 const dataSlice = createSlice({
@@ -39,6 +43,10 @@ const dataSlice = createSlice({
   reducers: {
     logout(state) {
       state.isLoggedIn = false;
+      removeUserFromLocalStorage();
+    },
+    updateUserInfo(state, action) {
+      state.user_info = action.payload;
     },
     temp(state) {
       state.isLoggedIn = true;
@@ -65,6 +73,6 @@ const dataSlice = createSlice({
   },
 });
 
-export const { temp, logout } = dataSlice.actions;
+export const { temp, logout, updateUserInfo } = dataSlice.actions;
 
 export default dataSlice.reducer;
