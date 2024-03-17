@@ -4,8 +4,6 @@ import Home from "./Pages/Home";
 import {
   BrowserRouter as Router,
   Route,
-  Link,
-  Form,
   Navigate,
   Routes,
 } from "react-router-dom";
@@ -15,28 +13,17 @@ import { toast } from "react-toastify";
 import Signup from "./Pages/Signup";
 import Profile from "./Pages/Profile";
 import { useDispatch, useSelector } from "react-redux";
-import { temp } from "./User/Login_auth";
 import Header from "./Components/Header";
-import { loginUser } from "./User/Login_auth";
-import Create_Job from "./Pages/Create_Job";
 
+import Create_Job from "./Pages/Create_Job";
+import Otp_page from "./Pages/Otp_page";
+import Post from "./Pages/Post";
+import Single_info from "./Pages/Single_info";
+import Apply_Jobs from "./Pages/Apply_Jobs";
 function App() {
   const dispatch = useDispatch();
   const [loggedIn, setLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const { isLoading, isLoggedIn } = useSelector((state) => state.user);
-  // const handleLogin = (username, password) => {
-  //   setUsername(username);
-  //   toast.success("please fill all fields");
-  //   setLoggedIn(true);
-  // };
-
-  // const handleLogout = () => {
-  //   setUsername("");
-  //   toast.warning("please fill all fields");
-  //   setLoggedIn(false);
-  // };
 
   const handleLogout = () => {
     // Dispatch logout action
@@ -49,18 +36,19 @@ function App() {
       <Routes>
         {isLoggedIn ? (
           <>
-            <Route
-              path="/"
-              element={<Home username={username} handleLogout={handleLogout} />}
-            />
+            <Route path="/" element={<Home handleLogout={handleLogout} />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/createjob" element={<Create_Job />} />
+            <Route path="/post" element={<Post />} />
+            <Route path="/applyJobs" element={<Apply_Jobs />} />
+            <Route path="/post/:id" element={<Single_info />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </>
         ) : (
           <>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/otp" element={<Otp_page />} />
             <Route path="*" element={<Navigate to="/login" replace />} />
           </>
         )}
