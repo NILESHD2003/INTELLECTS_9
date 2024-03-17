@@ -2,48 +2,59 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../User/Login_auth";
+import { updateUserInfo } from "../User/Login_auth";
 
-const Login = ({ username, password, setUsername, setPassword }) => {
+const Login = () => {
   const dispatch = useDispatch();
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleChangeEmail = (e) => {
+    setEmail(e.target.value);
   };
+
+  const handleChangePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
   const handleLogin = () => {
-    console.log("TRIGGERED");
-    dispatch(loginUser());
+    dispatch(loginUser({ email, password }));
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin();
+  };
+
   return (
     <div className="home">
-      <form action="" className="form" onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit} className="form">
         <h1>Log In</h1>
         <div className="form-group">
-          <label htmlFor="username">Username: </label>
+          <label htmlFor="email">Email: </label>
           <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email"
+            value={email}
+            onChange={handleChangeEmail}
             placeholder="student@standard.edu"
+            required
           />
         </div>
-        {/* <Input
-          label="Username:"
-          type="text"
-          placeholder="student@standard.edu"
-        ></Input> */}
         <div className="form-group">
-          <label htmlFor="password">Password </label>
+          <label htmlFor="password">Password: </label>
           <input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             type="password"
-            placeholder="password"
+            value={password}
+            onChange={handleChangePassword}
+            placeholder="Password"
+            required
           />
         </div>
-        <button className="btn" onClick={handleLogin}>
+        <button type="submit" className="btn">
           Login
         </button>
         <Link to="/signup" className="link">
-          Don't Have an Account?<span> Sign up</span>
+          Don't Have an Account? <span>Sign up</span>
         </Link>
       </form>
     </div>
