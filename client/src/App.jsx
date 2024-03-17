@@ -19,6 +19,7 @@ import Create_Job from "./Pages/Create_Job";
 import Otp_page from "./Pages/Otp_page";
 import Post from "./Pages/Post";
 import Single_info from "./Pages/Single_info";
+import Apply_Jobs from "./Pages/Apply_Jobs";
 function App() {
   const dispatch = useDispatch();
   const [loggedIn, setLoggedIn] = useState(false);
@@ -39,6 +40,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/createjob" element={<Create_Job />} />
             <Route path="/post" element={<Post />} />
+            <Route path="/applyJobs" element={<Apply_Jobs />} />
             <Route path="/post/:id" element={<Single_info />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </>

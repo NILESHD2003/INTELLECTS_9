@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <div className="navlink">
       <div className="logo">
-        <h2>Jobs Search</h2>
+        <h2>Job Port</h2>
       </div>
       <div
         className="header--small-info"

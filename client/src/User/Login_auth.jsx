@@ -9,21 +9,23 @@ import {
   getLoginFromLocalStorage,
 } from "../Utils/localStorage";
 
-export const loginUser = createAsyncThunk("data/login", async (_, thunkAPI) => {
-  try {
-    console.log(initialState.user_info);
+export const loginUser = createAsyncThunk(
+  "data/login",
+  async ({ email, password }, thunkAPI) => {
+    try {
+      const user_info = { email, password };
+      const resp = await axios.post(
+        "https://intellects-9.onrender.com/api/v1/auth/login",
+        user_info
+      );
 
-    const resp = await axios.post(
-      "https://intellects-9.onrender.com/api/v1/auth/login",
-      initialState.user_info
-    );
-
-    addUserToLocalStorage(resp.data.user);
-    return resp.data;
-  } catch (err) {
-    console.log(error);
+      addUserToLocalStorage(resp.data.user);
+      return resp.data;
+    } catch (error) {
+      return error;
+    }
   }
-});
+);
 
 export const setUser = (user) => ({
   type: "data/setUser",
@@ -34,7 +36,7 @@ const initialState = {
   isLoggedIn: getLoginFromLocalStorage(),
   user: getUserFromLocalStorage(),
   // user_info: { email: "test123@gmail.com", password: "test@123" },
-  user_info: { email: "", password: "" },
+  user_info: null,
 };
 
 const dataSlice = createSlice({
@@ -46,6 +48,7 @@ const dataSlice = createSlice({
       removeUserFromLocalStorage();
     },
     updateUserInfo(state, action) {
+      // console.log(action.payload);
       state.user_info = action.payload;
     },
     temp(state) {
@@ -66,9 +69,9 @@ const dataSlice = createSlice({
         addUserToLocalStorage(payload.user);
         toast.success(`Successfully  logged in as ${payload.user.firstName}`);
       })
-      .addCase(loginUser.rejected, (state, action) => {
+      .addCase(loginUser.rejected, (state, { payload }) => {
         state.isLoading = true;
-        console.log(action);
+        toast.error(payload);
       });
   },
 });

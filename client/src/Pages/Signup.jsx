@@ -28,14 +28,13 @@ const Signup = () => {
     e.preventDefault();
     dispatch(Otp(formData))
       .then((response) => {
-        console.log("Signup successful:", response.meta.arg);
         dispatch(store_data(response.meta.arg));
-        toast.success("Seccesfully");
+        toast.success("OTP sent successfully");
         navigate("/otp");
       })
       .catch((error) => {
         toast.danger("Try Again");
-        console.error("Signup error:", error);
+        console.error("Sign-up error:", error);
       });
   };
 

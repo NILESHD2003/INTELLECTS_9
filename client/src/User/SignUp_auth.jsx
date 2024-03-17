@@ -36,7 +36,6 @@ export const SignupUser = createAsyncThunk(
       // addUserToLocalStorage(resp.data.user);
       return resp.data;
     } catch (err) {
-      console.log("IN Error");
       console.log(error);
     }
   }
@@ -44,12 +43,12 @@ export const SignupUser = createAsyncThunk(
 
 export const Otp = createAsyncThunk("data/otp", async (formData, thunkAPI) => {
   try {
-    console.log();
+    console.log(formData.email);
     const resp = await axios.post(
       "https://intellects-9.onrender.com/api/v1/auth/sendotp",
       { email: `${formData.email}` }
     );
-    console.log(resp);
+
     return resp.data;
   } catch (err) {
     // console.log(error);
@@ -69,21 +68,21 @@ const Sign_in = createSlice({
       state.FormData = action.payload;
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(SignupUser.pending, (state, action) => {
-        // state.isLoading = true;
-        // state.data = payload.entries;
-      })
-      .addCase(SignupUser.fulfilled, (state, { payload }) => {
-        // state.formData = payload;
-        toast.success(`Successfully  Sign up `);
-      })
-      .addCase(SignupUser.rejected, (state, action) => {
-        // state.isLoading = true;
-        console.log(action);
-      });
-  },
+  // extraReducers: (builder) => {
+  //   builder
+  //     .addCase(SignupUser.pending, (state, action) => {
+  //       // state.isLoading = true;
+  //       // state.data = payload.entries;
+  //     })
+  //     .addCase(SignupUser.fulfilled, (state, { payload }) => {
+  //       // state.formData = payload;
+  //       toast.success(`Successfully  Sign up `);
+  //     })
+  //     .addCase(SignupUser.rejected, (state, action) => {
+  //       // state.isLoading = true;
+  //       console.log(action);
+  //     });
+  // },
 });
 
 export const { store_data } = Sign_in.actions;
